@@ -12,6 +12,7 @@ export interface TotalProffistAndLoss{
 export interface TotalSalesPerProduct{
   name?:string;
   totalSales?:number;
+  month?:string;
 }
 
 

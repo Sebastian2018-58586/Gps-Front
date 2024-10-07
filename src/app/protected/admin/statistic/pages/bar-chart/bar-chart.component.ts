@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -9,7 +9,7 @@ import { MainClass } from '../../../../../../classes/mainClass';
 import Swal from 'sweetalert2';
 import { StatiscticService } from '../../services/statisctic.service';
 import { BaseChartDirective } from 'ng2-charts';
-
+import { Location } from '@angular/common';
 
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 
@@ -106,9 +106,10 @@ export class BarChartComponent {
   main:MainClass= new MainClass();
   minDate = new FormControl(moment());
   maxDate = new FormControl(moment());
-  constructor(private service: StatiscticService){
+  constructor(private service: StatiscticService, private location: Location){
 
   }
+
 
   search(){
     const dateNow = new Date(Date.now());
@@ -122,38 +123,39 @@ export class BarChartComponent {
         const monthMin = this.minDate.value?.get('month');
         const yearMax=this.maxDate.value?.get('year');
         const monthMax = this.maxDate.value?.get('month');
-        this.service.getTotalProffitsAndLossForMonths(yearMin,monthMin,yearMax,monthMax).subscribe(
-          (resp)=>{
-            if(resp.ok===true){
-              resp.list!.forEach(
-                (element)=>{
-                  this.dataArrayLost.push(element.loss!);
-                  this.dataArrayProffit.push(element.proffits!)
-                  this.labels.push(element.month!);
-                }
-              )
-              this.barChartData.labels =this.labels;
-              this.barChartData.datasets = [
-                {
-                  data: this.dataArrayProffit,
-                  backgroundColor: '#4DB6AC',
-                  label: 'Ganancias'
-                },
-                {
-                  data: this.dataArrayLost,
-                  backgroundColor:'#E57373',
-                  label: 'Perdidas'
-                }
-              ]
-              this.showCanvas=true;
+        
+          this.service.getTotalProffitsAndLossForMonths(yearMin,monthMin,yearMax,monthMax).subscribe(
+            (resp)=>{
+              if(resp.ok===true){
+                resp.list!.forEach(
+                  (element)=>{
+                    this.dataArrayLost.push(element.loss!);
+                    this.dataArrayProffit.push(element.proffits!)
+                    this.labels.push(element.month!);
+                  }
+                )
+                this.barChartData.labels =this.labels;
+                this.barChartData.datasets = [
+                  {
+                    data: this.dataArrayProffit,
+                    backgroundColor: '#4DB6AC',
+                    label: 'Ganancias'
+                  },
+                  {
+                    data: this.dataArrayLost,
+                    backgroundColor:'#E57373',
+                    label: 'Perdidas'
+                  }
+                ]
+                this.showCanvas=true;
+              }
             }
-          }
-        )
+          )    
       }else{
         Swal.fire('Error','El mes de la fecha inicial debe ser menor o igual a la fecha final.','error');
       }
     }else{
       Swal.fire('Error','El año de las fechas debe ser igual al año actual.','error');
-    }
+    } 
   }
 }

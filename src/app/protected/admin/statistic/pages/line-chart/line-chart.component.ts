@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -8,6 +8,7 @@ import {default as _rollupMoment, Moment} from 'moment';
 import { MainClass } from '../../../../../../classes/mainClass';
 import Swal from 'sweetalert2';
 import { StatiscticService } from '../../services/statisctic.service';
+import { Location } from '@angular/common';
 
 const moment = _rollupMoment || _moment;
 
@@ -38,9 +39,10 @@ export const MY_FORMATS = {
   ],
 
 })
-export class LineChartComponent {
+export class LineChartComponent implements OnInit{
 
   showCanvas:boolean=true;
+  Pageproducts:boolean=false;
   labels:string[]=[];
   data:number[]=[];
   title = 'ng2-charts-demo';
@@ -66,9 +68,15 @@ export class LineChartComponent {
   minDate = new FormControl(moment());
   maxDate = new FormControl(moment());
 
-  constructor(private service: StatiscticService){
+  constructor(private service: StatiscticService, private location: Location){
 
   }
+
+  ngOnInit(): void {
+    const currentUrl= this.location.path();
+    this.Pageproducts= currentUrl.includes('productos-vendidos');
+  }
+  
 
   search(){
     const dateNow = new Date(Date.now());
@@ -81,30 +89,38 @@ export class LineChartComponent {
         const monthMin = this.minDate.value?.get('month');
         const yearMax=this.maxDate.value?.get('year');
         const monthMax = this.maxDate.value?.get('month');
-        this.service.getTotalSalesForMonths(yearMin,monthMin,yearMax,monthMax).subscribe(
-          (resp)=>{
-            if(resp.ok===true){
-              resp.list!.forEach(
-                (element)=>{
-                  this.data.push(element.totalSales!);
-                  this.labels.push(element.month!);
-                }
-              )
-              this.lineChartData.labels =this.labels;
-              this.lineChartData.datasets = [
-                {
-                  data: this.data,
-                  label: 'Ventas',
-                  fill: true,
-                  tension: 0.0,
-                  borderColor: 'black',
-                  backgroundColor: '#3F51B5'
-                }
-              ]
-              this.showCanvas=true;
+        if(!this.Pageproducts){
+
+          this.service.getTotalSalesForMonths(yearMin,monthMin,yearMax,monthMax).subscribe(
+            (resp)=>{
+              if(resp.ok===true){
+                resp.list!.forEach(
+                  (element)=>{
+                    this.data.push(element.totalSales!);
+                    this.labels.push(element.month!);
+                  }
+                )
+                this.lineChartData.labels =this.labels;
+                this.lineChartData.datasets = [
+                  {
+                    data: this.data,
+                    label: 'Ventas',
+                    fill: true,
+                    tension: 0.0,
+                    borderColor: 'black',
+                    backgroundColor: '#3F51B5'
+                  }
+                ]
+                this.showCanvas=true;
+              }
             }
-          }
-        )
+          )
+        } else{
+          this.service.getTotalProducts(yearMin,monthMin,yearMax,monthMax).subscribe(
+            (data) =>{
+              console.log(data);             
+            })    
+        }
       }else{
         Swal.fire('Error','El mes de la fecha inicial debe ser menor o igual a la fecha final.','error');
       }

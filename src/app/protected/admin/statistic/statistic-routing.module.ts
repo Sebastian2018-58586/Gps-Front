@@ -22,8 +22,8 @@ const routes: Routes = [
   },
   {
     path: 'productos-vendidos',
-    component:BarChartComponent,
-    data:{titulo:'Grafica de barras de productos mas vendidos',icon:'equalizer'}
+    component:LineChartComponent,
+    data:{titulo:'Grafica de lineas de productos más vendidos',icon:'timeline'}
   },
   {
     path:'**',

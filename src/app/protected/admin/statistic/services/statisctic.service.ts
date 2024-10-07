@@ -24,10 +24,10 @@ export class StatiscticService {
     return this.http.post<TotalProffistAndLossResponse>(url,body);
 
   }
-  getTotalProducts(minYear:number,minMonth:number,maxYear:number,maxMonth:number):Observable<TotalProductResponse>{
+  getTotalProducts(minYear:number,minMonth:number,maxYear:number,maxMonth:number):Observable<any>{
     const url = `${this._baseUrl}/salesPerProduct`;
     const body= {minDate:`${minMonth + 1}/01/${minYear}`,maxDate:`${maxMonth + 1}/31/${maxYear}`};
-    return this.http.post<TotalProductResponse>(url,body);
+    return this.http.post<any>(url,body);
 
   }
 
