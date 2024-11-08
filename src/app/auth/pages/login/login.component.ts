@@ -10,6 +10,10 @@ import { MainClass } from 'src/classes/mainClass';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+/*
+La clase LoginComponent se encarga de manejar la lógica de la página de inicio de sesión.
+*/
 export class LoginComponent {
   hideConfirmPassword = true;
   validateField: MainClass= new MainClass();
@@ -28,6 +32,9 @@ export class LoginComponent {
     return ValidateFields.errorMsg(this.noValidField(field), this.miFormulario, field, namefield);
   }
 
+  /*
+  La función login() se encarga de realizar la petición de inicio de sesión al backend.
+  */
   login() {
     const { email, password } = this.miFormulario.value;
     if (email && password) {
