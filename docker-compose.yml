@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./ProyectoFinalCafe-frontend-1
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "4200:4200"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./ProyectoFinalCafe-Backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./backend:/app/backend
