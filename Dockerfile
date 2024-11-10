@@ -1,24 +1,25 @@
-FROM node:lts-bullseye as build
-WORKDIR /app
+# Utiliza la imagen de Node como base
+FROM node:21
+
+# Instalar Angular CLI globalmente
+RUN npm install -g @angular/cli
+
+# Crear y configurar el directorio de trabajo
+WORKDIR /angular-app
+
+# Copiar archivos de configuración y dependencias
 COPY package*.json ./
-RUN npm ci
+COPY angular.json ./
+COPY tsconfig*.json ./
+
+# Instalar dependencias
+RUN npm install
+
+# Copiar el código fuente de la aplicación
 COPY . .
-RUN npm run build
 
-### Stage 2
-FROM nginx:alpine
-ADD ./config/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/app-frontend /var/www/app/app-frontend/app-frontend/
+# Exponer el puerto de la aplicación
 EXPOSE 4200
-CMD ["nginx", "-g", "daemon off;"]
 
-
-
-# COPY . .
-#RUN npm install
-#RUN npm run build --prod
-
-# Usa una imagen de servidor web para servir la aplicación Angular
-#FROM nginx:alpine
-#COPY --from=build /app/dist/your-angular-project /usr/share/nginx/html
-#EXPOSE 4200
+# Comando para iniciar la aplicación con ng serve y hacerlo accesible desde fuera del contenedor
+CMD ng serve --host 0.0.0.0 --port 4200
