@@ -21,6 +21,12 @@
         <small *ngIf="noValidField('password')" class="text-danger">{{ errorMsgField('password','La contraseña')
           }}</small>
       </div>
+<!-- Botón de "Iniciar sesión con Google" -->
+
+<button type="button" class="google-btn" (click)="loginWithGoogle()">
+  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+  Iniciar sesión con Google
+</button>
 
 
         <a href="auth/registro" class="form-link">¿Olvidaste tu contraseña?</a>
