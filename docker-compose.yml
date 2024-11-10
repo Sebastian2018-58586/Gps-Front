@@ -2,9 +2,7 @@ version: '3'
 
 services:
   frontend:
-    build:
-      context: ./ProyectoFinalCafe-frontend-1
-      dockerfile: Dockerfile
+    image: angular-dev
     container_name: frontend
     ports:
       - "4200:4200"
@@ -12,15 +10,22 @@ services:
       - NODE_ENV=development
     depends_on:
       - backend
+    networks:
+      - my-network
 
   backend:
-    build:
-      context: ./ProyectoFinalCafe-Backend
-      dockerfile: Dockerfile
+    image: my-backend
     container_name: backend
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+      - PORT=3000
     volumes:
       - ./backend:/app/backend
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
