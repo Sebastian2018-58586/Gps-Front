@@ -42,8 +42,8 @@ export class RegisterComponent {
       const { name, surname, adress, phoneNumber, email, password } = this.miFormulario.value
       this.service.registro(name, surname, email, password, phoneNumber, adress).subscribe((res) => {
         if (res.ok===true) {
-          this.router.navigateByUrl(`${res.rol}/usuario/inicio`);
-          Swal.fire('El usuario ha iniciado sesión', 'ok', 'success');
+          this.router.navigateByUrl(`${res.rol}/inicio`);
+          Swal.fire('El usuario ha iniciado sesión', 'Creado Satisfactoriamente', 'success');
         }else{
           Swal.fire('Error', 'Se presento un error. contactese con el administrador', 'error');
         }
