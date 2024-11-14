@@ -76,12 +76,13 @@ export class DetailComponent implements OnInit {
   }
 
   pagarnequi(){
-  
-          Swal.fire('Apreciado Cliente','A continuación se descargara el Qr de pago','info');
-         
-        }
+    Swal.fire('Apreciado Cliente','A continuación se descargará el Qr de pago','info');  
+    const link = document.createElement('a');
+    link.href = 'assets/qr_nequi_img.jpg';
+    link.download = 'qr_nequi_img.jpg';
+    link.click();
+  }
       
-   
 
   getSales() {
     this.saleService.findSalesByCustomer(Number(this.authService.user.uid!)).subscribe(
