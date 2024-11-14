@@ -75,6 +75,14 @@ export class DetailComponent implements OnInit {
     )
   }
 
+  pagarnequi(){
+  
+          Swal.fire('Apreciado Cliente','A continuación se descargara el Qr de pago','info');
+         
+        }
+      
+   
+
   getSales() {
     this.saleService.findSalesByCustomer(Number(this.authService.user.uid!)).subscribe(
       (resp)=>{
