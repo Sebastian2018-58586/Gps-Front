@@ -75,15 +75,54 @@ export class DetailComponent implements OnInit {
     )
   }
 
-  pagarnequi(){
-    Swal.fire('Apreciado Cliente','A continuación se descargará el Qr de pago','info');  
-    const link = document.createElement('a');
-    link.href = 'assets/qr_nequi_img.jpg';
-    link.download = 'qr_nequi_img.jpg';
-    link.click();
+  pagarnequi() {
+    Swal.fire({
+      title: 'Apreciado Cliente',
+      text: 'A continuación se descargará el Qr de pago',
+      icon: 'info',
+      confirmButtonText: 'Ok'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const link = document.createElement('a');
+        link.href = 'assets/qr_nequi_img.jpg';
+        link.download = 'qr_nequi_img.jpg';
+        link.click();
+      }
+      this.uploadFile();
+    });
   }
-      
 
+  uploadFile() {
+    Swal.fire({
+      title: 'Subir comprobante de pago',
+      text: 'Selecciona un archivo para cargar',
+      input: 'file',
+      inputAttributes: {
+        'accept': 'image/*,application/pdf',
+        'aria-label': 'Sube tu archivo'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Subir',
+      cancelButtonText: 'Cancelar',
+      preConfirm: (file) => {
+        if (!file) {
+          Swal.showValidationMessage('Debes seleccionar un archivo');
+        }
+        return file;
+      }
+    }).then((result) => {
+      if (result.isConfirmed && result.value) {
+        const file = result.value;
+        const formData = new FormData();
+        formData.append('file', file);
+        // Aquí puedes agregar la lógica para enviar el archivo al servidor
+        console.log('Archivo seleccionado:', file);
+        console.log("tolin");
+      }
+    });
+  }
+  
+      
   getSales() {
     this.saleService.findSalesByCustomer(Number(this.authService.user.uid!)).subscribe(
       (resp)=>{
