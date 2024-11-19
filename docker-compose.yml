@@ -29,3 +29,18 @@ services:
 networks:
   my-network:
     driver: bridge
+
+database:
+    build:
+      context: ./database
+    ports:
+      - "3306:3306"   # Puerto de MySQL
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: caferosita
+      MYSQL_USER: root
+      MYSQL_PASSWORD: null
+    networks:
+      - app-network

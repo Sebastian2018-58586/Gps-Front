@@ -47,6 +47,6 @@ export class LoginComponent {
 
   // Nueva función para redirigir a la página de inicio de sesión de Google
   loginWithGoogle() {
-    window.location.href = 'https://accounts.google.com/o/oauth2/auth?redirect_uri=YOUR_REDIRECT_URI&response_type=token&client_id=YOUR_CLIENT_ID&scope=email%20profile';
+    window.location.href = 'https://accounts.google.com/o/oauth2/auth?redirect_uri=dev-oa6pemztgg3qfwr1.us.auth0.com&response_type=token&client_id=70GNiDqul37jg2ilQJCe1kFlScYGqHSR&scope=email%20profile';
   }
 }

@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MaterialModule } from '../material/material.module';
+import { AuthModule as Auth0Module } from  "@auth0/auth0-angular"
 ;
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MaterialModule } from '../material/material.module';
     AuthRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    MaterialModule
+    MaterialModule,
+    Auth0Module
   ]
 })
 export class AuthModule { }

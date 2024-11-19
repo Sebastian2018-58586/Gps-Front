@@ -67,7 +67,7 @@ export class DetailComponent implements OnInit {
     this.orderService.updateOrder('pagado').subscribe(
       (resp)=>{
         if(resp.ok===true){
-          Swal.fire('Hecho!','Tu pedido ha sido registrado de manera satisfactoria');
+          Swal.fire('Hecho!','Tu pedido ha sido registrado de manera satisfactoria', 'success');
           this.getOrders();
           this.getSales();
         }
