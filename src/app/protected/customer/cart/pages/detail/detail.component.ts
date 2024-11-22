@@ -117,11 +117,19 @@ export class DetailComponent implements OnInit {
         formData.append('file', file);
         // Aquí puedes agregar la lógica para enviar el archivo al servidor
         console.log('Archivo seleccionado:', file);
-        console.log("tolin");
+
+        // Crear un objeto URL para el archivo seleccionado y almacenarlo en caché
+        const fileUrl = URL.createObjectURL(file);
+        console.log('URL del archivo en caché:', fileUrl);
+
+        // Aquí puedes agregar la lógica para enviar el archivo al servidor
+        // Ejemplo: this.orderService.uploadFile(formData).subscribe(...)
       }
     });
   }
+
   
+
       
   getSales() {
     this.saleService.findSalesByCustomer(Number(this.authService.user.uid!)).subscribe(
