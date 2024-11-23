@@ -84,12 +84,13 @@
                 <div class="row g-2 justify-content-center mb-1 mt-1">
                   <label for="inputEmail3" class="col-sm-4 col-form-label">Comprobante</label>
                   <div class="col-sm-7">
-                    <select class="form-control" formControlName="receipt">
-                      <option value="accepted">Aceptar</option>
-                      <option value="denied">Negar</option>
-                    </select>
-                    <button  mat-raised-button color="primary" class="ms-2" style="position: absolute; left: 888px; top: 83px;"><i class="fa fa-download me-1"></i> Ver Documento</button>
-  
+    
+                  <button mat-raised-button color="primary" (click)="confirmReceipt()">
+                    <mat-icon>check_circle</mat-icon>Confirmar</button>
+                   
+                    
+  <button mat-raised-button color="primary" class="ms-2" style="position: absolute; left: 888px; top: 83px;" (click)="downloadImage()">
+    <mat-icon>download</mat-icon>Ver Documento</button>
                   </div>
                 </div>
               </div>

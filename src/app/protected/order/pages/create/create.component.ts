@@ -39,6 +39,30 @@ export class CreateComponent implements OnInit {
 
   }
 
+  downloadImage() {
+    const link = document.createElement('a');
+    link.href = 'assets/comprobante_img.jpg';
+    link.download = 'comprobante_img.jpg';
+    link.click();
+  }
+
+  confirmReceipt(){
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¿Estás seguro de confirmar este comprobante?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, confirmar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(  '¡Confirmado!', 'El comprobante ha sido confirmado.', 'success');
+      }
+    });
+
+  }
+
   ngOnInit() {
     this.showCustomer = this.authService.user.rol! === 'cliente' ? false : true;
     if (this.router.url.includes('ver')) {

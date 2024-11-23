@@ -1,7 +1,9 @@
 
 <div class="container mt-5 mb-5">
   <form class="form" (ngSubmit)="login()" [formGroup]="miFormulario">
-    <h2 class="form-title">Acceder</h2>
+    <div class="form-title">
+      <img src="assets/logo_cafe_rosita.png" style="width: 210px; height: 90px;">
+    </div>
     <div class="form-container">
       <div class="form-group">
         <input type="text" class="form-input" formControlName="email" placeholder="Ingrese el correo">

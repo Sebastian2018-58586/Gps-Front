@@ -36,6 +36,50 @@ export class RegisterComponent {
     return ValidateFields.errorMsg(this.noValidField(field), this.miFormulario, field, namefield);
   }
 
+  openTermsModal() {
+    Swal.fire({
+      title: 'Términos y Condiciones',
+      html: `
+      <div style="max-height: 400px; overflow-y: auto;">
+        <p>1. Introducción</p>
+        <p>Al registrarte en nuestro sitio web Café Rosita, aceptas cumplir con los siguientes términos y condiciones. Si no estás de acuerdo, por favor, no completes el registro.</p>
+        <p>2. Requisitos de registro</p>
+        <p>Debes ser mayor de 18 años para registrarte.</p>
+        <p>Es necesario proporcionar información válida y actualizada, como tu nombre completo, dirección de correo electrónico y contraseña.</p>
+        <p>Mantén tus credenciales seguras. No nos hacemos responsables de accesos no autorizados a tu cuenta por compartir tu contraseña con terceros.</p>
+        <p>3. Uso de datos personales</p>
+        <p>Los datos proporcionados serán tratados según nuestra Política de Privacidad.</p>
+        <p>Usaremos tus datos para gestionar tu cuenta, procesar tus pedidos, y enviarte información promocional, si así lo autorizas.</p>
+        <p>4. Responsabilidad del usuario</p>
+        <p>Al registrarte, te comprometes a:</p>
+        <ul>
+          <li>No usar el sitio para actividades ilegales.</li>
+          <li>Proporcionar información verdadera y mantenerla actualizada.</li>
+          <li>No crear múltiples cuentas con fines fraudulentos.</li>
+        </ul>
+        <p>5. Derechos de la plataforma</p>
+        <p>Podemos suspender o cancelar tu cuenta si violas estos términos o detectamos actividades sospechosas.</p>
+        <p>Nos reservamos el derecho de realizar cambios en estos términos sin previo aviso. Cualquier cambio será publicado en nuestro sitio web.</p>
+        <p>6. Propiedad intelectual</p>
+        <p>Todo el contenido de Café Rosita es propiedad exclusiva de la empresa. Está prohibido el uso no autorizado.</p>
+        <p>7. Resolución de conflictos</p>
+        <p>Cualquier disputa relacionada con el uso del sitio web será resuelta conforme a las leyes de [tu país].</p>
+        <p>8. Contacto</p>
+        <p>Si tienes dudas, contáctanos en cafedecamporosita@gmail.com o al teléfono 3187957182 - 3004873227.</p>
+      </div>
+      `,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Aceptado', 'Has aceptado los términos y condiciones.', 'success');
+      } else {
+        Swal.fire('Cancelado', 'No has aceptado los términos y condiciones.', 'error');
+      }
+    });
+  }
 
   registrar() {
     if (this.miFormulario.valid) {
