@@ -1,5 +1,5 @@
 # Utiliza la imagen de Node como base
-FROM node:21
+FROM node:21-slim
 
 # Instalar Angular CLI globalmente
 RUN npm install -g @angular/cli
