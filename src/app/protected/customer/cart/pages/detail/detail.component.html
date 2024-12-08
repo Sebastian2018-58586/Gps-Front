@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-xs-10 col-sm-12 col-md-12 d-flex flex-column flex-sm-row justify-content-end ">
                       <button mat-raised-button matStepperNext class="btn-step" [disabled]="details_Order.length < 1">
-                        <mat-icon>keyboard_arrow_right</mat-icon>Realizar compra
+                        <mat-icon>keyboard_arrow_right</mat-icon>Realizar Pedido
                       </button>
                     </div>
                   </div>
@@ -58,10 +58,14 @@
                             <button mat-raised-button (click)="pagarnequi()" style="position: absolute; left: 768px; top: 324px;">
                             <mat-icon>keyboard_arrow_right</mat-icon>Pagar nequi
                           </button>
-                          <button mat-raised-button (click)="saveSale()" class="btn btn-step"
-                            >
-                            <mat-icon>keyboard_arrow_right</mat-icon>Realizar
-                          </button>
+                          <button 
+                          mat-raised-button 
+                          (click)="saveSale()" 
+                          class="btn btn-step" 
+                          [disabled]="isDisabled">
+                          <mat-icon>keyboard_arrow_right</mat-icon>
+                          Realizar Compra
+                        </button>                        
                         </div>
                       </div>
                     </div>

@@ -15,6 +15,7 @@ import { SaleService } from '../../../../admin/sale/services/sale.service';
   styleUrls: ['../../css/style.css']
 })
 export class DetailComponent implements OnInit {
+  isDisabled: boolean = true
 
   showButtonsTablePedido: showButtons = { deleteButton: true, updateButton: false, viewButton: false };
   showButtonsTableSale: showButtons = { deleteButton: false, updateButton: false, viewButton: true };
@@ -117,6 +118,7 @@ export class DetailComponent implements OnInit {
         formData.append('file', file);
         // Aquí puedes agregar la lógica para enviar el archivo al servidor
         console.log('Archivo seleccionado:', file);
+        this.isDisabled = false; 
 
         // Crear un objeto URL para el archivo seleccionado y almacenarlo en caché
         const fileUrl = URL.createObjectURL(file);
