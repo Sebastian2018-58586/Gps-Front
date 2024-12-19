@@ -1,6 +1,8 @@
 <div class="container mt-5 mb-5">
   <form class="form" [formGroup]="miFormulario" (ngSubmit)="registrar()">
-    <h2 class="form-title">Crear cuenta</h2>
+    <div class="form-title">
+      <img src="assets/logo_cafe_rosita.png" style="width: 210px; height: 90px;">
+    </div>
     <div class="form-container">
       <div class="form-group">
         <input type="text" class="form-input" formControlName="name" [class.is-invalid]="noValidField('name')"
@@ -49,7 +51,7 @@
         </div>
   
       <div class="form-group exception">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" (click)="openTermsModal()">
           <label class="form-check-label" for="exampleCheck1">Aceptar condiciones y restricciones</label>
       </div>
         <button type="submit" class="form-submit exception" [disabled]="miFormulario.invalid">Registrarse</button>

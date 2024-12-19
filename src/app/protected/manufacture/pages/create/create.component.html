@@ -103,7 +103,7 @@
                       <input type="number"
                         [class.is-invalid]="validateField.noValidField('amount',formGroupProduct(index))"
                         formControlName="amount" value="" class="form-control" id="amount"
-                        placeholder="ingrese la cantidad que desea utilizar">
+                        placeholder="Ingrese la cantidad a utilizar(unidad)">
                       <div class="invalid-feedback">
                         {{ validateField.errorMsgField('amount','La cantidad',formGroupProduct(index))}}
                       </div>
@@ -166,12 +166,12 @@
                     id="{{detailManufacture.nameProduct}}" value="{{detailManufacture.nameProduct}}">
                 </div>
                 <div class="col-xs-10 col-sm-12 col-md-4 mb-2">
-                  <label for="inputEmail4" class="form-label">Cantidad Usada</label>
+                  <label for="inputEmail4" class="form-label">Cantidad Usada (kg)</label>
                   <input formControlName="amount" type="text" class="form-control" id="{{detailManufacture.amount}}"
                     value="{{detailManufacture.amount}}">
                 </div>
                 <div class="col-xs-10 col-sm-12 col-md-4 mb-2">
-                  <label for="inputEmail4" class="form-label">Cantidad perdida</label>
+                  <label for="inputEmail4" class="form-label">Cantidad perdida (kg)</label>
                   <input type="number"
                     [class.is-invalid]="validateField.noValidField('amountLost',formGroupManufactureProductLost(index))"
                     formControlName="amountLost" value="" class="form-control" id="amountLost"
@@ -203,16 +203,16 @@
                     id="{{product.name}}" value="{{product.name}}">
                 </div>
                 <div class="col-xs-10 col-sm-12 col-md-4 mb-2">
-                  <label for="inputEmail4" class="form-label">Cantidad unitaria</label>
+                  <label for="inputEmail4" class="form-label">Cantidad unitaria(Unidad)</label>
                   <input formControlName="amount" type="text" class="form-control" id="{{product.amount}}"
                     value="{{product.amount}}">
                 </div>
                 <div class="col-xs-10 col-sm-12 col-md-4 mb-2">
-                  <label for="inputEmail4" class="form-label">Cantidad manufacturada</label>
+                  <label for="inputEmail4" class="form-label">Cantidad manufacturada(Unidad)</label>
                   <input type="number"
                     [class.is-invalid]="validateField.noValidField('amountMaked',formGroupManufactureProductMaked(index))"
                     formControlName="amountMaked" value="" class="form-control" id="amountMaked"
-                    placeholder="ingrese la cantidad que desea utilizar">
+                    placeholder="Ingrese la cantidad que desea utilizar">
                   <div class="invalid-feedback">
                     {{ validateField.errorMsgField('amountMaked','La cantidad',formGroupManufactureProductMaked(index))}}
                   </div>

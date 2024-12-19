@@ -112,3 +112,29 @@
 .form-input:focus ~ .invalid-line{
   transform: scale(1);
 }
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(145, 80, 64);
+  color: white;
+  padding: 0.8em;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: max(1em, 12px);
+  font-weight: 300;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.google-btn:hover {
+  background-color: #357ae8;
+}
