@@ -25,5 +25,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Exponer el puerto
 EXPOSE 4200
 
+#Ejecutar el comando para iniciar Nginx
+
 # Comando para iniciar Nginx (ya está en la imagen base, no necesitas cambiarlo)
 CMD ["nginx", "-g", "daemon off;"]
