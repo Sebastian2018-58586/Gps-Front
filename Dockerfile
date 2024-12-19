@@ -1,25 +1,29 @@
-# Utiliza la imagen de Node como base
-FROM node:21
+# Etapa 1: Construcción
+FROM node:18 AS builder
 
-# Instalar Angular CLI globalmente
-RUN npm install -g @angular/cli
+# Establecer el directorio de trabajo
+WORKDIR /app
 
-# Crear y configurar el directorio de trabajo
-WORKDIR /angular-app
-
-# Copiar archivos de configuración y dependencias
+# Copiar los archivos de dependencias e instalarlas
 COPY package*.json ./
-COPY angular.json ./
-COPY tsconfig*.json ./
-
-# Instalar dependencias
 RUN npm install
 
-# Copiar el código fuente de la aplicación
+# Copiar el código fuente y compilar la aplicación Angular
 COPY . .
+RUN npm run build --prod
 
-# Exponer el puerto de la aplicación
+# Etapa 2: Servir con Nginx
+FROM nginx:alpine
+
+# Copiar el build de Angular desde la etapa anterior al directorio de Nginx
+COPY --from=builder /app/dist/app-frontend /usr/share/nginx/html
+
+# Configuración de Nginx personalizada (opcional)
+# Puedes agregar un archivo nginx.conf si necesitas configuraciones específicas
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Exponer el puerto
 EXPOSE 4200
 
-# Comando para iniciar la aplicación con ng serve y hacerlo accesible desde fuera del contenedor
-CMD ng serve --host 0.0.0.0 --port 4200
+# Comando para iniciar Nginx (ya está en la imagen base, no necesitas cambiarlo)
+CMD ["nginx", "-g", "daemon off;"]
