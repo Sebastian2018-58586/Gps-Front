@@ -50,7 +50,8 @@ export class AuthService {
   login(email: string, password: string) {
     const url = `${this.baseUrl}/auth`
     const body = { email, password };
-    return this.http.post<AuthResponse>(url, body).pipe(
+    const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    return this.http.post<AuthResponse>(url, body, { headers }).pipe(
       tap(({ ok, token }) => {
         if (ok===true) {
           this.setCookie(token!);
