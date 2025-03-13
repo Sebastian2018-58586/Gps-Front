@@ -16,25 +16,35 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'npm ci' // 🔹 Usa npm ci para instalaciones más rápidas y confiables
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build -- --configuration=production' // ✅ Fix Angular 12+
+                timeout(time: 10, unit: 'MINUTES') { // 🔹 Limita el tiempo de construcción
+                    sh 'npm run build -- --configuration=production'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test || echo "No hay pruebas configuradas"' // ✅ Evita fallo si no hay pruebas
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'npm test || echo "No hay pruebas configuradas"' // 🔹 Evita fallo si no hay pruebas
+                }
             }
         }
 
         stage('Deploy') {
             steps {
                 sh 'echo "Desplegando la aplicación..."'
+            }
+        }
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs() // 🔹 Limpia el workspace para liberar espacio
             }
         }
     }
@@ -45,6 +55,9 @@ pipeline {
         }
         failure {
             echo '❌ Pipeline falló!'
+        }
+        unstable {
+            echo '⚠️ Pipeline inestable (por ejemplo, pruebas fallidas).'
         }
     }
 }
