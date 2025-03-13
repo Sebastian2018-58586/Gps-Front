@@ -4,6 +4,7 @@ pipeline {
     environment {
         NODEJS_HOME = tool name: 'NodeJS', type: 'nodejs' // Debe coincidir con la configuración en Jenkins
         PATH = "${NODEJS_HOME}/bin:${env.PATH}"
+        NODE_OPTIONS = "--max_old_space_size=4096" // 🔹 Aumenta la memoria a 4GB
     }
 
     stages {
@@ -47,4 +48,3 @@ pipeline {
         }
     }
 }
-
